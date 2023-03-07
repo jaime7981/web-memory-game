@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Memory Game</title>
+
+        <link rel="stylesheet" href="./css/main-style.css">
+    </head>
+
+    <body>
+        <header>
+            <h1>
+                Memory Proyect
+            </h1>
+        </header>
+        <div class="memorize-main-game-block">
+            <aside class="game-configurations">
+                <div class="config-block">
+                    <span>Game Parameters</span>
+                    <form class="config-form" onsubmit="">
+                        <label for="username">Username:</label><br>
+                        <input type="text" id="username" name="username"><br>
+
+                        <label for="ddl-size">Game Size:</label>
+                        <select name="ddl-size" id="ddl-size">
+                            <option value=8>8</option>
+                            <option value=18>18</option>
+                            <option value=24>24</option>
+                        </select><br>
+
+                        <input type="submit" value="Start Game">
+                    </form>
+                </div>
+                <div class="config-block">
+                    <span>Configuration</span>
+                    <form class="config-form" onsubmit="">
+                        <label for="ddl-ligth-mode">Ligth Mode:</label>
+                        <select name="ddl-ligth-mode" id="ddl-size">
+                            <option value=true>true</option>
+                            <option value=false>false</option>
+                        </select><br>
+        
+                        <input type="submit" value="Set Config">
+                    </form>
+                </div>
+            </aside>
+            <section class="game-section">
+                <div class="main-game-top-bar">
+                    <span>TIME: 1:00</span>
+                    <span>Memory Game</span>
+                    <span>TURNS: 4</span>
+                </div>
+                <div class="main-game-section">
+                    <div class="game-cards-block">
+                        <div class="card">Card1</div>
+                        <div class="card">Card2</div>
+                        <div class="card">Card3</div>
+                        <div class="card">Card4</div>
+                    </div>
+                    <div class="game-cards-block">
+                        <div class="card">Card1</div>
+                        <div class="card">Card2</div>
+                        <div class="card">Card3</div>
+                        <div class="card">Card4</div>
+                    </div>
+                    <div class="game-cards-block">
+                        <div class="card">Card1</div>
+                        <div class="card">Card2</div>
+                        <div class="card">Card3</div>
+                        <div class="card">Card4</div>
+                    </div>
+                </div><br>
+                <div class="main-game-section">
+                    <div class="card">Card1</div>
+                    <div class="card">Card2</div>
+                    <div class="card">Card3</div>
+                    <div class="card">Card4</div>
+                    <div class="card">Card1</div>
+                    <div class="card">Card2</div>
+                    <div class="card">Card3</div>
+                    <div class="card">Card4</div>
+                    <div class="card">Card1</div>
+                    <div class="card">Card2</div>
+                    <div class="card">Card3</div>
+                    <div class="card">Card4</div>
+                </div>
+            </section>
+            <aside class="game-configurations">
+                <div class="config-block">
+                    <span>Scoreboard</span>
+                    <div class="config-form">
+                        <div>
+                            <span>User</span>
+                            <span>Turns</span>
+                            <span>Time</span>
+                            <span>Score</span>
+                        </div>
+                        <div>
+                            <span>Jaime</span>
+                            <span>18</span>
+                            <span>0:42</span>
+                            <span>60</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </body>
+</html>

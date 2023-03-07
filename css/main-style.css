@@ -1,0 +1,98 @@
+
+h1 {
+    text-align: center;
+}
+
+.memorize-main-game-block {
+    background-color: blueviolet;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px;
+    padding: 15px;
+
+    display: flex;
+}
+
+.game-configurations {
+    background-color: rgb(74, 74, 148);
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 5px;
+    margin: 10px;
+
+    width: fit-content;
+    padding: 10px;
+}
+
+.config-block {
+    background-color: rgb(74, 148, 123);
+    border-style: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.config-form {
+    background-color: rgb(74, 148, 123);
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.game-section {
+    background-color: blue;
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 5px;
+
+    margin: 10px;
+    padding: 10px;
+
+    width: fit-content;
+}
+
+.main-game-top-bar {
+    background-color: rgb(124, 151, 151);
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-game-section {
+    background-color: aqua;
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 5px;
+    
+    display: flex;
+    flex-wrap: wrap;
+
+    width: fit-content;
+}
+
+.game-cards-block {
+    background-color: aquamarine;
+    border-width: 2px;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 10px;
+}
+
+.card {
+    background-color: antiquewhite;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 2px;
+}
