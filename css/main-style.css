@@ -1,13 +1,22 @@
 
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #CAF0F8;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0px;
+    background-image: linear-gradient(#03045E, #CAF0F8);
 }
 
 h1 {
     text-align: center;
+    color: azure;
 }
 
 span {
@@ -15,20 +24,23 @@ span {
     margin: 0 auto;
 }
 
-.memorize-main-game-block {
-    background-color: blueviolet;
+.top-span {
+    background-color: #03045E;
+    color: white;
     border-style: solid;
     border-color: black;
-    border-radius: 15px;
+    border-width: 4px 4px 0px 4px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.memorize-main-game-block {
     padding: 0px;
-
     display: flex;
-
     width: fit-content;
 }
 
 .game-configurations {
-    background-color: rgb(74, 74, 148);
+    background-image: linear-gradient(#023E8A, #ADE8F4);
     border-style: solid;
     border-color: black;
     border-width: 4px;
@@ -40,38 +52,34 @@ span {
 }
 
 .config-block {
-    background-color: rgb(74, 148, 123);
     border-style: none;
     border-radius: 5px;
     padding: 10px;
-    margin: 5px;
     width: inherit;
 }
 
 .config-form {
-    background-color: rgb(74, 148, 123);
+    background-color: #48CAE4;
     border-style: solid;
     border-color: black;
     border-width: 4px;
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
     padding: 10px;
+
+    height: max-content;
 }
 
 .game-section {
-    background-color: blue;
-    border-style: solid;
-    border-color: black;
-    border-width: 4px;
-    border-radius: 5px;
-
-    margin: 5px 0px;
-    padding: 5px;
-
+    background-color: #48CAE4;
+    padding: 5px 0px 5px 0px;
     width: fit-content;
+    padding: 0px;
+    border-radius: 10px;
 }
 
 .main-game-top-bar {
-    background-color: rgb(124, 151, 151);
+    background-color: #03045E;
+    color: white;
     border-style: solid;
     border-color: black;
     border-width: 4px 4px 0px 4px;
@@ -82,12 +90,11 @@ span {
 }
 
 .main-game-section {
-    background-color: aqua;
     border-style: solid;
     border-color: black;
     border-width: 4px;
     border-radius: 0px 0px 5px 5px;
-    padding: 4px;
+    padding: 1px;
     
     display: flex;
     flex-wrap: wrap;
@@ -98,7 +105,6 @@ span {
 }
 
 .game-cards-block {
-    background-color: aquamarine;
     border-width: 2px;
     border-radius: 5px;
     margin: 2px;
@@ -111,11 +117,11 @@ span {
     border-color: black;
     border-width: 2px;
     border-radius: 5px;
-    margin: 2px;
+    margin: 1px;
     padding: 2px;
 
-    width: 75px;
-    height: 100px;
+    width: 55px;
+    height: 80px;
 
     display: flex;
     justify-content: center;
@@ -123,7 +129,7 @@ span {
 }
 
 .scoreboard-aside {
-    background-color: rgb(74, 74, 148);
+    background-image: linear-gradient(#023E8A, #ADE8F4);
     border-style: solid;
     border-color: black;
     border-width: 4px;
@@ -134,11 +140,9 @@ span {
 }
 
 .scoreboard-block {
-    background-color: rgb(74, 148, 123);
     border-style: none;
     border-radius: 5px;
     padding: 10px;
-    margin: 5px;
     width: inherit;
 }
 
@@ -147,11 +151,11 @@ span {
 }
 
 .scoreboard-table {
-    background-color: rgb(74, 148, 123);
+    background-color: #48CAE4;
     border-style: solid;
     border-color: black;
     border-width: 4px;
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
     padding: 10px;
 
     display: flex;
@@ -177,21 +181,72 @@ span {
 
 @media screen and (max-width: 900px) {
     .game-configurations {
+        background-image: none;
+        background-color: #48CAE4;
         display: flex;
-        width: max-content;
-        width: 95%;
+        width: 100%;
+        height: 100%;
         justify-content: space-evenly;
+        border-width: 0px;
+        border-radius: 10px 10px 0px 0px;
+        margin: 0px;
+        padding: 0px;
+    }
+    .game-section {
+        border-radius: 0px;
     }
     .memorize-main-game-block {
+        border-style: solid;
+        border-color: black;
+        border-radius: 15px;
         flex-direction: column;
         align-items: center;
     }
     .scoreboard-aside {
+        background-color: #48CAE4;
+        background-image: none;
+        margin: 0px;
+        border-width: 0px;
+        border-radius: 0px 0px 10px 10px;
+        padding: 0px;
+
         display: flex;
-        width: 95%;
+        width: 100%;
         justify-content: center;
+    }
+    .scoreboard-block {
+        background-color: transparent;
+        margin: 0px;
+        padding: 0px;
+        border-width: 0px;
+    }
+    .top-span {
+        margin: 0px;
+        padding: 0px;
     }
     .scoreboard-table {
         display: flex;
+        padding: 5px 0px;
+        border-width: 0px;
+        border-radius: 0px 0px 10px 10px;
+    }
+
+    #scoreboard {
+        border-width: 0px 0px 3px 0px;
+        border-radius: 0px;
+        padding: 4px 0px 4px 0px;
+    }
+
+    .main-game-top-bar {
+        border-radius: 0px;
+        border-width: 3px 0px 3px 0px;
+    }
+    .main-game-section {
+        border-radius: 0px;
+        border-width: 0px 0px 3px 0px;
+    }
+    .config-block {
+        background-color: transparent;
+        margin: 0px;
     }
 }
