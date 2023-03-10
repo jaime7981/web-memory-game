@@ -122,7 +122,7 @@ span {
 }
 
 .card {
-    background-color: #d4eef4;
+    background-color: #CAF0F8;
     border-style: solid;
     border-color: black;
     border-width: 2px;
@@ -136,6 +136,12 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.card:hover {
+    border-color: rgb(210, 44, 44);
+    background-color: #ADE8F4;
+    cursor: pointer;
 }
 
 .scoreboard-aside {
