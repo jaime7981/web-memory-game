@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Memory Game</title>
+        <title>Abstract Memory</title>
 
-        <link rel="stylesheet" href="./css/main-style.css">
-        <script type="text/javascript" src="./js/game.js"></script>
+        <link rel="stylesheet" href="./main-style.css">
+        <script type="text/javascript" src="./game.js"></script>
     </head>
 
     <body>
         <header>
             <h1>
-                Memory Proyect
+                Abstract Memory
             </h1>
         </header>
         <div class="memorize-main-game-block">
@@ -22,26 +22,26 @@
                         <input type="text" id="username-input" name="username">
 
                         <label for="ddl-size">Game Size:</label>
-                        <select name="ddl-size" id="ddl-size">
+                        <select name="ddl-size" id="ddl-size" class="dropdown-select">
                             <option value=8>8</option>
                             <option value=18>18</option>
                             <option value=32>32</option>
                             <option value=36>36</option>
                         </select><br>
 
-                        <input type="submit" value="Start Game">
+                        <div class="button-div-start-game">
+                            <input type="submit" value="Start Game" class="button-scoreboard-filter">
+                        </div>
                     </form>
                 </div>
                 <div class="config-block">
                     <div class="top-span"><span>Configuration</span></div>
                     <form class="config-form" onsubmit="">
-                        <label for="ddl-ligth-mode">Ligth Mode:</label>
+                        <label for="ddl-ligth-mode">Dark Mode:</label>
                         <select name="ddl-ligth-mode" id="ddl-size">
                             <option value=true>true</option>
                             <option value=false>false</option>
                         </select><br>
-        
-                        <input type="submit" value="Set Config">
                     </form>
                 </div>
             </aside>
@@ -64,7 +64,7 @@
                         </div>
                         <div  class="scoreboard-filters-ddl">
                             <label for="ddl-size"></label>Cards:</label>
-                            <select name="ddl-size" id="ddl-size-scoreboard">
+                            <select name="ddl-size" id="ddl-size-scoreboard" class="dropdown-select">
                                 <option value=8>8</option>
                                 <option value=18>18</option>
                                 <option value=32>32</option>

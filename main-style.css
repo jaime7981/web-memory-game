@@ -230,6 +230,51 @@ span {
     background-color: #CAF0F8;
 }
 
+.button-scoreboard-filter {
+    background-color: #023E8A;
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    color: white;
+    padding: 2px 6px 2px 6px;
+    cursor: pointer;
+}
+
+.button-scoreboard-filter:hover {
+    background-color: #00B4D8;
+    border-color: #023E8A;
+    color: black;
+}
+
+.button-selected {
+    background-color: #CAF0F8;
+    border-color: #023E8A;
+    color: black;
+
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    padding: 2px 6px 2px 6px;
+    cursor: pointer;
+}
+
+.button-div-start-game {
+    margin: 5px 0px 0px 0px;
+}
+
+.dropdown-select {
+    background-color: #023E8A;
+    color: white;
+    border-color: black;
+
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+
+    cursor: pointer;
+}
+
 /* Responsive layout */
 
 @media screen and (max-width: 900px) {

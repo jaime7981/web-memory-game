@@ -46,9 +46,11 @@ function loadCards() {
         newCard.className = "card";
         // newCard.innerHTML = (i + 1).toString();
         // newCard.appendChild(insertSvgIntoCard());
+        // newCard.style.backgroundColor = "#" + getRandomInt(0, 16777215).toString(16);
 
         if (loadFirstCardsCounter < 4 & loadFirstCardsCounter > 1) {
             newCard.appendChild(insertSvgIntoCard());
+            newCard.style.backgroundColor = "#" + getRandomInt(0, 16777215).toString(16);
         }
         loadFirstCardsCounter += 1;
 
@@ -59,7 +61,7 @@ function loadCards() {
 function insertSvgIntoCard() {
     let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     let svgPath = document.createElementNS('http://www.w3.org/2000/svg',"path");
-    svgElement.setAttribute("viewBox", "0 0 100 100");
+    svgElement.setAttribute("viewBox", "20 0 123 180");
     svgElement.appendChild(createRandomPath(svgPath));
     return svgElement;
 }
@@ -81,10 +83,10 @@ function generateRandomSvg() {
     let cardWidth = 80;
     // let svgString = "M " + getRandomInt(cardHeight) + "," + getRandomInt(cardWidth) + " ";
     let svgString = "M " + getRandomInt(-cardWidth/2, cardWidth/2) + "," + getRandomInt(-cardHeight/2, cardHeight/2) + " ";
-    let numberOfVectors = getRandomInt(15, 40);
+    let numberOfVectors = getRandomInt(20, 30);
 
     for (let i = 0; i < numberOfVectors; i++) {
-        svgString += "L" + getRandomInt(30, 150) + " " + getRandomInt(30, 150) + " ";
+        svgString += "L" + getRandomInt(30, 200) + " " + getRandomInt(30, 200) + " ";
     }
 
     svgString += "z";
@@ -159,6 +161,14 @@ function removeElementsByClass(className){
     }
 }
 
+function setButtonsToDeafault() {
+    let scoreboardSelectedButtons = document.getElementsByClassName("button-selected");
+
+    for (let i = 0; i < scoreboardSelectedButtons.length; i++) {
+        scoreboardSelectedButtons[i].className = "button-scoreboard-filter";
+    }
+}
+
 window.onload = function pageonLoad() {
     loadCards();
     loadScoreboard(scoreboardCompParam);
@@ -168,12 +178,16 @@ window.onload = function pageonLoad() {
     numberOfCardsScoreboard.onchange = function() {
         loadScoreboard(scoreboardCompParam);
     }
-    document.getElementById("time-button-scoreboard-filter").addEventListener("click", function() {
+    document.getElementById("time-button-scoreboard-filter").addEventListener("click", function(e) {
         scoreboardCompParam = "Time";
+        setButtonsToDeafault();
+        e.target.className = "button-selected";
         loadScoreboard("Time");
     });
-    document.getElementById("turns-button-scoreboard-filter").addEventListener("click", function() {
+    document.getElementById("turns-button-scoreboard-filter").addEventListener("click", function(e) {
         scoreboardCompParam = "Turns";
+        setButtonsToDeafault();
+        e.target.className = "button-selected";
         loadScoreboard("Turns");
     }); 
 }
