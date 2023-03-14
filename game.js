@@ -2,6 +2,7 @@
 var scoreboardCompParam = "Time";
 var gameTimerInterval = null;
 var isGameRunning = false;
+var isCardAbleToTurn = true;
 var gameTurns = 0;
 var gameTime = 0;
 
@@ -36,9 +37,9 @@ var fakedData = {
 };
 
 function updateTimer() {
-    let showTurnsSpan = document.getElementById("show-game-time");
+    let showTimeSpan = document.getElementById("show-game-time");
     gameTime ++;
-    showTurnsSpan.innerHTML = gameTime;
+    showTimeSpan.innerHTML = gameTime;
 }
 
 function stopGameTimer() {
@@ -47,6 +48,21 @@ function stopGameTimer() {
     isGameRunning = false;
     gameTime = 0;
     gameTurns = 0;
+    document.getElementById("button-stop-game").innerHTML = "Reset Game";
+    resetShownCards();
+}
+
+function resetGame() {
+    let showTurnsSpan = document.getElementById("show-game-turns");
+    let showTimeSpan = document.getElementById("show-game-time");
+    clearInterval(gameTimerInterval);
+    gameTimerInterval = null;
+    isGameRunning = false;
+    gameTime = 0;
+    gameTurns = 0;
+    showTurnsSpan.innerHTML = gameTurns;
+    showTimeSpan.innerHTML = gameTime;
+    document.getElementById("button-stop-game").innerHTML = "Stop Game";
     resetShownCards();
 }
 
@@ -81,16 +97,15 @@ function showCardEventListener(svgContainer) {
 
         if (isCardShowing == "false") {
             showCard(selectedCard);
-        }
-        else if (isCardShowing == "true") {
-            hideCard(selectedCard);
-        }
-        gameTurns += 1;
-        showTurnsSpan.innerHTML = Math.floor(gameTurns/2);
-        if (Math.floor(gameTurns) % 2 == 1) {
-            setTimeout(() => {
-                resetShownCards();
-            }, 1000);
+            if (Math.floor(gameTurns) % 2 == 1) {
+                isCardAbleToTurn = false;
+                setTimeout(() => {
+                    resetShownCards();
+                    isCardAbleToTurn = true;
+                }, 1000);
+            }
+            gameTurns += 1;
+            showTurnsSpan.innerHTML = Math.floor(gameTurns/2);
         }
     }
 }
@@ -99,7 +114,9 @@ function loadCardEventListeners() {
     let allCards = document.getElementsByClassName('card');
     for (let i = 0; i < allCards.length; i++) {
         allCards[i].addEventListener("click", function(e) {
-            showCardEventListener(e.target);
+            if (isCardAbleToTurn == true) {
+                showCardEventListener(e.target);
+            }
             if (gameTurns == 1) {
                 isGameRunning = true;
                 gameTimerInterval = setInterval(updateTimer, 1000);
@@ -236,14 +253,20 @@ window.onload = function pageonLoad() {
     let numberOfCards = document.getElementById('ddl-size');
     let numberOfCardsScoreboard = document.getElementById('ddl-size-scoreboard');
     numberOfCards.onchange = function() {
+        resetGame();
         loadCards();
         loadCardEventListeners();
     }
     numberOfCardsScoreboard.onchange = function() {
         loadScoreboard(scoreboardCompParam);
     }
-    document.getElementById("button-stop-game").addEventListener("click", function() {
-        stopGameTimer();
+    document.getElementById("button-stop-game").addEventListener("click", function(e) {
+        if (isGameRunning == true) {
+            stopGameTimer();
+        }
+        else if (isGameRunning == false) {
+            resetGame();
+        }
     })
     document.getElementById("time-button-scoreboard-filter").addEventListener("click", function(e) {
         scoreboardCompParam = "Time";
