@@ -17,7 +17,7 @@
             <aside class="game-configurations">
                 <div class="config-block">
                     <div class="top-span"><span>Game Parameters</span></div>
-                    <form class="config-form" onsubmit="">
+                    <div class="config-form">
                         <label for="username">Username:</label>
                         <input type="text" id="username-input" name="username">
 
@@ -28,28 +28,39 @@
                             <option value=32>32</option>
                             <option value=36>36</option>
                         </select><br>
-
                         <div class="button-div-start-game">
-                            <input type="submit" value="Start Game" class="button-scoreboard-filter">
+                            <button id="button-stop-game" class="button-scoreboard-filter">Stop Game</button>
+                            <div>
+                                <p>To start a game click a card.</p>
+                                <p>If you stop the game, click a card again to start over.</p>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="config-block">
                     <div class="top-span"><span>Configuration</span></div>
-                    <form class="config-form" onsubmit="">
+                    <div class="config-form">
                         <label for="ddl-ligth-mode">Dark Mode:</label>
                         <select name="ddl-ligth-mode" id="ddl-size" class="dropdown-select">
                             <option value=true>true</option>
                             <option value=false>false</option>
                         </select><br>
-                    </form>
+                    </div>
                 </div>
             </aside>
             <section class="game-section">
                 <div class="main-game-top-bar">
-                    <span>TIME: 72</span>
-                    <span>Memory Game</span>
-                    <span>TURNS: 4</span>
+                    <div>
+                        <span>TIME:</span>
+                        <span id="show-game-time">0</span>
+                    </div>
+                    <div>
+                        <span>Memory Game</span>
+                    </div>
+                    <div>
+                        <span>TURNS:
+                        <span id="show-game-turns">0</span></span>
+                    </div>
                 </div>
                 <div class="main-game-section">
                 </div>

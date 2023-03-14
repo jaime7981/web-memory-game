@@ -1,5 +1,9 @@
 
 var scoreboardCompParam = "Time";
+var gameTimerInterval = null;
+var isGameRunning = false;
+var gameTurns = 0;
+var gameTime = 0;
 
 var fakedData = {
     "scoreboard":[
@@ -31,6 +35,21 @@ var fakedData = {
     ]
 };
 
+function updateTimer() {
+    let showTurnsSpan = document.getElementById("show-game-time");
+    gameTime ++;
+    showTurnsSpan.innerHTML = gameTime;
+}
+
+function stopGameTimer() {
+    clearInterval(gameTimerInterval);
+    gameTimerInterval = null;
+    isGameRunning = false;
+    gameTime = 0;
+    gameTurns = 0;
+    resetShownCards();
+}
+
 function loadCards() {
     let mainGameClass = document.getElementsByClassName('main-game-section')[0];
     let numberOfCards = document.getElementById('ddl-size');
@@ -46,19 +65,32 @@ function loadCards() {
     }
 }
 
+function resetShownCards() {
+    let allShownSvgCards = document.getElementsByClassName("svg-show-card");
+    while(allShownSvgCards.length > 0){
+        hideCard(allShownSvgCards[0]);
+    }
+}
+
 function showCardEventListener(svgContainer) {
     let cardChildren = svgContainer.children;
     if (cardChildren.length == 1) {
         let selectedCard = cardChildren[0];
         let isCardShowing = selectedCard.getAttribute("data-isShowing");
+        let showTurnsSpan = document.getElementById("show-game-turns");
 
         if (isCardShowing == "false") {
             showCard(selectedCard);
-            selectedCard.setAttribute("data-isShowing", true);
         }
         else if (isCardShowing == "true") {
             hideCard(selectedCard);
-            selectedCard.setAttribute("data-isShowing", false);
+        }
+        gameTurns += 1;
+        showTurnsSpan.innerHTML = Math.floor(gameTurns/2);
+        if (Math.floor(gameTurns) % 2 == 1) {
+            setTimeout(() => {
+                resetShownCards();
+            }, 1000);
         }
     }
 }
@@ -68,6 +100,10 @@ function loadCardEventListeners() {
     for (let i = 0; i < allCards.length; i++) {
         allCards[i].addEventListener("click", function(e) {
             showCardEventListener(e.target);
+            if (gameTurns == 1) {
+                isGameRunning = true;
+                gameTimerInterval = setInterval(updateTimer, 1000);
+            }
         });
     }
 }
@@ -75,13 +111,13 @@ function loadCardEventListeners() {
 function showCard(card) {
     card.classList.remove("svg-hide-card");
     card.classList.add("svg-show-card");
-    //card.style.display = "block";
+    card.setAttribute("data-isShowing", true);
 }
 
 function hideCard(card) {
     card.classList.remove("svg-show-card");
     card.classList.add("svg-hide-card");
-    //card.style.display = "none";
+    card.setAttribute("data-isShowing", false);
 }
 
 function insertSvgIntoCard() {
@@ -206,6 +242,9 @@ window.onload = function pageonLoad() {
     numberOfCardsScoreboard.onchange = function() {
         loadScoreboard(scoreboardCompParam);
     }
+    document.getElementById("button-stop-game").addEventListener("click", function() {
+        stopGameTimer();
+    })
     document.getElementById("time-button-scoreboard-filter").addEventListener("click", function(e) {
         scoreboardCompParam = "Time";
         setButtonsToDeafault();

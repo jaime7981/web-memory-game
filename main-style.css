@@ -19,6 +19,11 @@ h1 {
     color: azure;
 }
 
+p {
+    margin: 0px;
+    padding: 2px;
+}
+
 span {
     display: table;
     margin: 0 auto;
@@ -60,6 +65,7 @@ path {
     border-radius: 5px;
     padding: 10px;
     width: inherit;
+    max-width: 318px;
 }
 
 .config-form {
