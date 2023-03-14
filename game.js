@@ -1,7 +1,5 @@
 
 var scoreboardCompParam = "Time";
-var testSvg = "M228 319.5H12C5.64873 319.5 0.5 314.351 0.5 308V12C0.5 5.64873 5.64873 0.5 12 0.5H159.175C159.571 0.5 159.952 0.656748 160.233 0.936021L239.057 79.2681C239.341 79.5497 239.5 79.9326 239.5 80.3321V308C239.5 314.351 234.351 319.5 228 319.5Z"
-var svgHeart = "M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z";
 
 var fakedData = {
     "scoreboard":[
@@ -37,39 +35,67 @@ function loadCards() {
     let mainGameClass = document.getElementsByClassName('main-game-section')[0];
     let numberOfCards = document.getElementById('ddl-size');
     let cardNumbers = numberOfCards.value;
-
-    let loadFirstCardsCounter = 0;
-
+    let newCard = null;
     mainGameClass.innerHTML = null;
+
     for (let i = 0; i < cardNumbers; i++) {
-        let newCard = document.createElement("div");
+        newCard = document.createElement("div");
         newCard.className = "card";
-        // newCard.innerHTML = (i + 1).toString();
-        // newCard.appendChild(insertSvgIntoCard());
-        // newCard.style.backgroundColor = "#" + getRandomInt(0, 16777215).toString(16);
-
-        if (loadFirstCardsCounter < 4 & loadFirstCardsCounter > 1) {
-            newCard.appendChild(insertSvgIntoCard());
-            newCard.style.backgroundColor = "#" + getRandomInt(0, 16777215).toString(16);
-        }
-        loadFirstCardsCounter += 1;
-
+        newCard.appendChild(insertSvgIntoCard());
         mainGameClass.appendChild(newCard);
     }
+}
+
+function showCardEventListener(svgContainer) {
+    let cardChildren = svgContainer.children;
+    if (cardChildren.length == 1) {
+        let selectedCard = cardChildren[0];
+        let isCardShowing = selectedCard.getAttribute("data-isShowing");
+
+        if (isCardShowing == "false") {
+            showCard(selectedCard);
+            selectedCard.setAttribute("data-isShowing", true);
+        }
+        else if (isCardShowing == "true") {
+            hideCard(selectedCard);
+            selectedCard.setAttribute("data-isShowing", false);
+        }
+    }
+}
+
+function loadCardEventListeners() {
+    let allCards = document.getElementsByClassName('card');
+    for (let i = 0; i < allCards.length; i++) {
+        allCards[i].addEventListener("click", function(e) {
+            showCardEventListener(e.target);
+        });
+    }
+}
+
+function showCard(card) {
+    card.classList.remove("svg-hide-card");
+    card.classList.add("svg-show-card");
+    //card.style.display = "block";
+}
+
+function hideCard(card) {
+    card.classList.remove("svg-show-card");
+    card.classList.add("svg-hide-card");
+    //card.style.display = "none";
 }
 
 function insertSvgIntoCard() {
     let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     let svgPath = document.createElementNS('http://www.w3.org/2000/svg',"path");
+    svgElement.classList.add("svg-hide-card");
     svgElement.setAttribute("viewBox", "20 0 123 180");
+    svgElement.setAttribute("data-isShowing", false);
+    svgElement.style.backgroundColor = "#" + getRandomInt(0, 16777215).toString(16);
     svgElement.appendChild(createRandomPath(svgPath));
     return svgElement;
 }
 
 function createRandomPath(svgPathElement) {
-    svgPathElement.style.stroke = "black";
-    svgPathElement.style.strokeWidth = "1px";
-    //svgPathElement.setAttribute("d", svgHeart);
     svgPathElement.setAttribute("d", generateRandomSvg());
     return svgPathElement;
 }
@@ -81,7 +107,6 @@ function getRandomInt(min, max) {
 function generateRandomSvg() {
     let cardHeight = 55;
     let cardWidth = 80;
-    // let svgString = "M " + getRandomInt(cardHeight) + "," + getRandomInt(cardWidth) + " ";
     let svgString = "M " + getRandomInt(-cardWidth/2, cardWidth/2) + "," + getRandomInt(-cardHeight/2, cardHeight/2) + " ";
     let numberOfVectors = getRandomInt(20, 30);
 
@@ -98,6 +123,8 @@ function loadScoreboard(comparitionParam) {
     let cardsNr = document.getElementById('ddl-size-scoreboard');
     let paramColTitle = document.getElementById("scoreboard-data-comparition-type");
     let placeCounter = 1;
+    let data = null;
+    let paramData = null;
     paramColTitle.innerHTML = comparitionParam;
 
     removeElementsByClass("scoreboard-table-data");
@@ -106,10 +133,8 @@ function loadScoreboard(comparitionParam) {
         return false;
     }
     for (gameData in scoreboardData) {
-        let data = scoreboardData[gameData];
+        data = scoreboardData[gameData];
         if (cardsNr.value == data["cards"]) {
-            let paramData = null;
-            
             if (comparitionParam == "Time") {
                 paramData = data["time"];
             }
@@ -121,7 +146,6 @@ function loadScoreboard(comparitionParam) {
                                    paramData,
                                    data["date"]);
             placeCounter += 1;
-
         }
     }
     return true;
@@ -134,21 +158,22 @@ function insertDataToScoreboard(place, username, type, date) {
     let dateElement = document.getElementById("scoreboard-data-date");
 
     let placeChild = document.createElement("p");
+    let usernameChild = document.createElement("p");
+    let paramChild = document.createElement("p");
+    let dateChild = document.createElement("p");
+
     placeChild.className = "scoreboard-table-data";
     placeChild.innerHTML = place;
     placeElement.appendChild(placeChild);
 
-    let usernameChild = document.createElement("p");
     usernameChild.className = "scoreboard-table-data";
     usernameChild.innerHTML = username;
     usernameElement.appendChild(usernameChild);
 
-    let paramChild = document.createElement("p");
     paramChild.className = "scoreboard-table-data";
     paramChild.innerHTML = type;
     paramElement.appendChild(paramChild);
 
-    let dateChild = document.createElement("p");
     dateChild.className = "scoreboard-table-data";
     dateChild.innerHTML = date;
     dateElement.appendChild(dateChild);
@@ -163,7 +188,6 @@ function removeElementsByClass(className){
 
 function setButtonsToDeafault() {
     let scoreboardSelectedButtons = document.getElementsByClassName("button-selected");
-
     for (let i = 0; i < scoreboardSelectedButtons.length; i++) {
         scoreboardSelectedButtons[i].className = "button-scoreboard-filter";
     }
@@ -171,10 +195,14 @@ function setButtonsToDeafault() {
 
 window.onload = function pageonLoad() {
     loadCards();
+    loadCardEventListeners();
     loadScoreboard(scoreboardCompParam);
     let numberOfCards = document.getElementById('ddl-size');
     let numberOfCardsScoreboard = document.getElementById('ddl-size-scoreboard');
-    numberOfCards.onchange = loadCards;
+    numberOfCards.onchange = function() {
+        loadCards();
+        loadCardEventListeners();
+    }
     numberOfCardsScoreboard.onchange = function() {
         loadScoreboard(scoreboardCompParam);
     }
