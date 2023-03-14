@@ -368,6 +368,7 @@ path {
         border-radius: 0px;
         border-width: 0px 0px 3px 0px;
         width: auto;
+        max-width: max-content;
     }
     .config-block {
         background-color: transparent;
