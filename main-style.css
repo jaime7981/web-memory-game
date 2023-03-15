@@ -31,6 +31,7 @@ span {
 
 path {
     pointer-events: none;
+    transform: scale(0.3);
 }
 
 #username-input {
@@ -147,6 +148,12 @@ path {
     display: none;
     border-radius: 3px;
     pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.svg-hide-card::after {
+    background-color: attr(data-randomColor);
 }
 
 .svg-show-card {
@@ -154,6 +161,12 @@ path {
     border-radius: 3px;
     cursor: default;
     pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.svg-show-card:after {
+    background-color: attr(data-randomColor);
 }
 
 .scoreboard-aside {

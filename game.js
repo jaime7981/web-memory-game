@@ -141,9 +141,8 @@ function insertSvgIntoCard() {
     let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     let svgPath = document.createElementNS('http://www.w3.org/2000/svg',"path");
     svgElement.classList.add("svg-hide-card");
-    svgElement.setAttribute("viewBox", "20 0 123 180");
     svgElement.setAttribute("data-isShowing", false);
-    svgElement.style.backgroundColor = "#" + getRandomInt(0, 16777215).toString(16);
+    svgElement.setAttribute("data-randomColor", "#" + getRandomInt(0, 16777215).toString(16));
     svgElement.appendChild(createRandomPath(svgPath));
     return svgElement;
 }
