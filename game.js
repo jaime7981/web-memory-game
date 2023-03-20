@@ -71,14 +71,38 @@ function loadCards() {
     let numberOfCards = document.getElementById('ddl-size');
     let cardNumbers = numberOfCards.value;
     let newCard = null;
+    let svgElement = null;
+    let svgPath = null;
+    let cardList = [];
     mainGameClass.innerHTML = null;
 
-    for (let i = 0; i < cardNumbers; i++) {
-        newCard = document.createElement("div");
-        newCard.className = "card";
-        newCard.appendChild(insertSvgIntoCard());
-        mainGameClass.appendChild(newCard);
+    for (let i = 0; i < cardNumbers/2; i++) {
+        svgPath = generateRandomSvg();
+        for (let j = 0; j < 2; j++) {
+            newCard = document.createElement("div");
+            newCard.className = "card";
+            svgElement = insertSvgIntoCard(svgPath);
+            newCard.appendChild(svgElement);
+            newCard.setAttribute("data-cardId", i*2 + j);
+            newCard.setAttribute("data-pairId", i);
+            cardList.push(newCard);
+        }
     }
+
+    cardList = shuffleArray(cardList);
+
+    for (let i = 0; i < cardList.length; i++) {
+        mainGameClass.appendChild(cardList[i]);
+    }
+}
+
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 function resetShownCards() {
@@ -137,19 +161,15 @@ function hideCard(card) {
     card.setAttribute("data-isShowing", false);
 }
 
-function insertSvgIntoCard() {
+function insertSvgIntoCard(randomSvgPath) {
     let svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     let svgPath = document.createElementNS('http://www.w3.org/2000/svg',"path");
+    svgPath.setAttribute("d", randomSvgPath)
     svgElement.classList.add("svg-hide-card");
     svgElement.setAttribute("data-isShowing", false);
     svgElement.setAttribute("data-randomColor", "#" + getRandomInt(0, 16777215).toString(16));
-    svgElement.appendChild(createRandomPath(svgPath));
+    svgElement.appendChild(svgPath);
     return svgElement;
-}
-
-function createRandomPath(svgPathElement) {
-    svgPathElement.setAttribute("d", generateRandomSvg());
-    return svgPathElement;
 }
 
 function getRandomInt(min, max) {
