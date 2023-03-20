@@ -67,6 +67,17 @@ function resetGame() {
     resetShownCards();
 }
 
+function checkGameEnd() {
+    let allCards = document.getElementsByClassName("card");
+    let gameInfo = document.getElementById("game-info-span");
+    if (allCards.length == 0) {
+        gameInfo.innerHTML = "Time: " + gameTime + " Turns:" + gameTurns + ", click to restart";
+        resetGame();
+        loadCards();
+        loadCardEventListeners();
+    }
+}
+
 function loadCards() {
     let mainGameClass = document.getElementsByClassName('main-game-section')[0];
     let numberOfCards = document.getElementById('ddl-size');
@@ -127,13 +138,12 @@ function showCardEventListener(svgContainer) {
             showTurnsSpan.innerHTML = Math.floor(gameTurns/2);
 
             if (lastSelectedCard != null) {
-                console.log(lastSelectedCard.getAttribute("data-pair-id"));
-                console.log(svgContainer.getAttribute("data-pair-id"));
                 if (svgContainer.getAttribute("data-pair-id") == lastSelectedCard.getAttribute("data-pair-id")) {
                     svgContainer.className = "card-delete";
                     lastSelectedCard.className = "card-delete";
                     svgContainer.setAttribute("data-card-deleted", true);
                     lastSelectedCard.setAttribute("data-card-deleted", true);
+                    checkGameEnd();
                 }
             }
 
