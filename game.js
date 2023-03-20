@@ -3,6 +3,7 @@ var scoreboardCompParam = "Time";
 var gameTimerInterval = null;
 var isGameRunning = false;
 var isCardAbleToTurn = true;
+var lastSelectedCard = null;
 var gameTurns = 0;
 var gameTime = 0;
 
@@ -82,27 +83,20 @@ function loadCards() {
             newCard = document.createElement("div");
             newCard.className = "card";
             svgElement = insertSvgIntoCard(svgPath);
+            newCard.setAttribute("data-card-id", i*2 + j);
+            newCard.setAttribute("data-pair-id", i);
+            newCard.setAttribute("data-card-deleted", false);
             newCard.appendChild(svgElement);
-            newCard.setAttribute("data-cardId", i*2 + j);
-            newCard.setAttribute("data-pairId", i);
             cardList.push(newCard);
         }
     }
 
-    cardList = shuffleArray(cardList);
+    cardList.sort(() => Math.random() - 0.5);
+    cardList.sort(() => Math.random() - 0.5);
 
     for (let i = 0; i < cardList.length; i++) {
         mainGameClass.appendChild(cardList[i]);
     }
-}
-
-// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
 }
 
 function resetShownCards() {
@@ -110,6 +104,7 @@ function resetShownCards() {
     while(allShownSvgCards.length > 0){
         hideCard(allShownSvgCards[0]);
     }
+    lastSelectedCard = null;
 }
 
 function showCardEventListener(svgContainer) {
@@ -130,6 +125,19 @@ function showCardEventListener(svgContainer) {
             }
             gameTurns += 1;
             showTurnsSpan.innerHTML = Math.floor(gameTurns/2);
+
+            if (lastSelectedCard != null) {
+                console.log(lastSelectedCard.getAttribute("data-pair-id"));
+                console.log(svgContainer.getAttribute("data-pair-id"));
+                if (svgContainer.getAttribute("data-pair-id") == lastSelectedCard.getAttribute("data-pair-id")) {
+                    svgContainer.className = "card-delete";
+                    lastSelectedCard.className = "card-delete";
+                    svgContainer.setAttribute("data-card-deleted", true);
+                    lastSelectedCard.setAttribute("data-card-deleted", true);
+                }
+            }
+
+            lastSelectedCard = svgContainer;
         }
     }
 }
@@ -138,7 +146,7 @@ function loadCardEventListeners() {
     let allCards = document.getElementsByClassName('card');
     for (let i = 0; i < allCards.length; i++) {
         allCards[i].addEventListener("click", function(e) {
-            if (isCardAbleToTurn == true) {
+            if (isCardAbleToTurn == true && e.target.getAttribute("data-card-deleted") == "false") {
                 showCardEventListener(e.target);
             }
             if (gameTurns == 1) {

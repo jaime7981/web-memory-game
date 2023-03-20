@@ -138,6 +138,23 @@ path {
     align-items: center;
 }
 
+.card-delete {
+    background-color: #CAF0F8;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 5px;
+    margin: 1px;
+
+    width: 55px;
+    height: 80px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.2;
+}
+
 .card:hover {
     border-color: rgb(210, 44, 44);
     background-color: #ADE8F4;
