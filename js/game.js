@@ -7,6 +7,10 @@ var lastSelectedCard = null;
 var gameTurns = 0;
 var gameTime = 0;
 
+var scoreboardLocalStorage = {
+    "scoreboard":[]
+};
+
 var fakedData = {
     "scoreboard":[
         {"username":"jaime",
@@ -71,7 +75,9 @@ function checkGameEnd() {
     let allCards = document.getElementsByClassName("card");
     let gameInfo = document.getElementById("game-info-span");
     if (allCards.length == 0) {
-        gameInfo.innerHTML = "Time: " + gameTime + " Turns:" + gameTurns + ", click to restart";
+        gameInfo.innerHTML = "Time: " + gameTime + " Turns:" + Math.floor(gameTurns/2) + ", click to restart";
+        addDataIntoScoreboard();
+        loadScoreboard(scoreboardCompParam);
         resetGame();
         loadCards();
         loadCardEventListeners();
@@ -209,7 +215,7 @@ function generateRandomSvg() {
 }
 
 function loadScoreboard(comparitionParam) {
-    let scoreboardData = fakedData["scoreboard"];
+    let scoreboardData = scoreboardLocalStorage["scoreboard"];
     let cardsNr = document.getElementById('ddl-size-scoreboard');
     let paramColTitle = document.getElementById("scoreboard-data-comparition-type");
     let placeCounter = 1;
@@ -237,8 +243,39 @@ function loadScoreboard(comparitionParam) {
                                    data["date"]);
             placeCounter += 1;
         }
+        if (placeCounter > 3) {
+            return true;
+        }
     }
     return true;
+}
+
+function addDataIntoScoreboard() {
+    let scoreboardData = scoreboardLocalStorage["scoreboard"];
+    let username = document.getElementById("username-input").value;
+    let time = gameTime;
+    let turns = Math.floor(gameTurns/2);
+    let cards = document.getElementById('ddl-size').value;
+    let date = new Date().toJSON().slice(0, 19);
+
+    if (username == "") {
+        username = "default";
+    }
+
+    let newData = {"username":username,
+    "time":time,
+    "turns":turns,
+    "cards":parseInt(cards),
+    "date":date};
+
+    scoreboardData.push(newData);
+    localStorage.setItem("scoreboardArray", JSON.stringify(scoreboardData));
+}
+
+function loadScoreboardData() {
+    if (scoreboardLocalStorage["scoreboard"] != null) {
+        scoreboardLocalStorage["scoreboard"] = JSON.parse(localStorage.getItem("scoreboardArray"));
+    }
 }
 
 function insertDataToScoreboard(place, username, type, date) {
@@ -283,12 +320,26 @@ function setButtonsToDeafault() {
     }
 }
 
+function changeCssColors() {
+    if (localStorage.getItem("darkMode") == true) {
+        return true;
+    }
+
+    return false;
+}
+
 window.onload = function pageonLoad() {
     loadCards();
     loadCardEventListeners();
+    loadScoreboardData();
     loadScoreboard(scoreboardCompParam);
+
     let numberOfCards = document.getElementById('ddl-size');
     let numberOfCardsScoreboard = document.getElementById('ddl-size-scoreboard');
+    let darkMode = document.getElementById('ddl-dark-mode');
+    darkMode.value = localStorage.getItem("darkMode");
+    changeCssColors();
+
     numberOfCards.onchange = function() {
         resetGame();
         loadCards();
@@ -296,6 +347,10 @@ window.onload = function pageonLoad() {
     }
     numberOfCardsScoreboard.onchange = function() {
         loadScoreboard(scoreboardCompParam);
+    }
+    darkMode.onchange = function(e) {
+        localStorage.setItem("darkMode", e.target.value);
+        changeCssColors();
     }
     document.getElementById("button-stop-game").addEventListener("click", function(e) {
         if (isGameRunning == true) {
