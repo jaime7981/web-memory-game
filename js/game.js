@@ -11,36 +11,6 @@ var scoreboardLocalStorage = {
     "scoreboard":[]
 };
 
-var fakedData = {
-    "scoreboard":[
-        {"username":"jaime",
-         "time":60,
-         "turns":20,
-         "cards":8,
-         "date":"21/6/2022"},
-        {"username":"juan",
-         "time":21,
-         "turns":10,
-         "cards":8,
-         "date":"21/6/2022"},
-        {"username":"manuel",
-         "time":23,
-         "turns":13,
-         "cards":18,
-         "date":"21/6/2022"},
-        {"username":"pablo",
-         "time":60,
-         "turns":20,
-         "cards":32,
-         "date":"21/6/2022"},
-        {"username":"diego",
-         "time":23,
-         "turns":13,
-         "cards":36,
-         "date":"21/6/2022"}
-    ]
-};
-
 function updateTimer() {
     let showTimeSpan = document.getElementById("show-game-time");
     gameTime ++;
@@ -223,6 +193,10 @@ function loadScoreboard(comparitionParam) {
     let paramData = null;
     paramColTitle.innerHTML = comparitionParam;
 
+    if (scoreboardData == null) {
+        
+    }
+    scoreboardData = sortDataInDescendingOrder(scoreboardData, comparitionParam);
     removeElementsByClass("scoreboard-table-data");
 
     if (scoreboard == null) {
@@ -250,6 +224,25 @@ function loadScoreboard(comparitionParam) {
     return true;
 }
 
+function sortDataInDescendingOrder(scoreboardData, comparitionParam) {
+    let sortedList = [];
+
+    if (scoreboardData == null){
+        return scoreboardData;
+    }
+
+    if (comparitionParam == "Time") {
+        sortedList = scoreboardData.sort(
+            (p1, p2) => (p1.time > p2.time) ? 1 : (p1.time < p2.time) ? -1 : 0);
+    }
+    else if (comparitionParam == "Turns") {
+        sortedList = scoreboardData.sort(
+            (p1, p2) => (p1.turns > p2.turns) ? 1 : (p1.turns < p2.turns) ? -1 : 0);
+    }
+    
+    return sortedList;
+}
+
 function addDataIntoScoreboard() {
     let scoreboardData = scoreboardLocalStorage["scoreboard"];
     let username = document.getElementById("username-input").value;
@@ -273,7 +266,7 @@ function addDataIntoScoreboard() {
 }
 
 function loadScoreboardData() {
-    if (scoreboardLocalStorage["scoreboard"] != null) {
+    if (localStorage.getItem("scoreboardArray") != null) {
         scoreboardLocalStorage["scoreboard"] = JSON.parse(localStorage.getItem("scoreboardArray"));
     }
 }
