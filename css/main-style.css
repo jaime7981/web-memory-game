@@ -2,11 +2,11 @@
 :root {
     --dark-first-color: #03045E;
     --dark-second-color: #023E8A;
-    --dark-third-color: #0077B6;
+    /*--dark-third-color: #0077B6;*/
     --middle-first-color: #0096C7;
     --middle-second-color: #00B4D8;
     --middle-third-color: #48CAE4;
-    --ligth-first-color: #90E0EF;
+    /*--ligth-first-color: #90E0EF;*/
     --ligth-second-color: #ADE8F4;
     --ligth-third-color: #CAF0F8;
     --text-is-black-primary-color: white;
@@ -182,6 +182,8 @@ path {
     pointer-events: none;
     width: 100%;
     height: 100%;
+
+    transition: all 0.3s ease-in-out;
 }
 
 .svg-hide-card::after {
@@ -195,6 +197,9 @@ path {
     pointer-events: none;
     width: 100%;
     height: 100%;
+
+    transform: rotate(360deg);
+    transition: all 0.3s ease-in-out;
 }
 
 .svg-show-card:after {
@@ -277,6 +282,7 @@ path {
 
 .scoreboard-table-data {
     background-color: var(--ligth-third-color);
+    color: black;
 }
 
 .button-scoreboard-filter {
@@ -299,7 +305,7 @@ path {
 .button-selected {
     background-color: var(--ligth-third-color);
     border-color: #023E8A;
-    color: var(--text-is-black-secondary-color);
+    color: black;
 
     border-radius: 5px;
     border-width: 2px;

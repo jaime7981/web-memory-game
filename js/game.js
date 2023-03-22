@@ -314,11 +314,33 @@ function setButtonsToDeafault() {
 }
 
 function changeCssColors() {
-    if (localStorage.getItem("darkMode") == true) {
-        return true;
+    let r = document.querySelector(':root');
+    if (localStorage.getItem("darkMode") == "true") {
+        r.style.setProperty('--dark-first-color', '#03045E');
+        r.style.setProperty('--dark-second-color', '#023E8A');
+        // r.style.setProperty('--dark-third-color', '#0077B6');
+        r.style.setProperty('--middle-first-color', '#0096C7');
+        r.style.setProperty('--middle-second-color', '#00B4D8');
+        r.style.setProperty('--middle-third-color', '#48CAE4');
+        // r.style.setProperty('--ligth-first-color', '#90E0EF');
+        r.style.setProperty('--ligth-second-color', '#ADE8F4');
+        r.style.setProperty('--ligth-third-color', '#CAF0F8');
+        r.style.setProperty('--text-is-black-primary-color', 'white');
+        r.style.setProperty('--text-is-black-secondary-color', 'black');
     }
-
-    return false;
+    else if (localStorage.getItem("darkMode") == "false") {
+        r.style.setProperty('--dark-first-color', '#90E0EF');
+        r.style.setProperty('--dark-second-color', '#ADE8F4');
+        // r.style.setProperty('--dark-third-color', '#0077B6');
+        r.style.setProperty('--middle-first-color', '#48CAE4');
+        r.style.setProperty('--middle-second-color', '#00B4D8');
+        r.style.setProperty('--middle-third-color', '#0096C7');
+        // r.style.setProperty('--ligth-first-color', '#03045E');
+        r.style.setProperty('--ligth-second-color', '#0096C7');
+        r.style.setProperty('--ligth-third-color', '#CAF0F8');
+        r.style.setProperty('--text-is-black-primary-color', 'black');
+        r.style.setProperty('--text-is-black-secondary-color', 'white');
+    }
 }
 
 window.onload = function pageonLoad() {
