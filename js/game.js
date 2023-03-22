@@ -146,12 +146,14 @@ function loadCardEventListeners() {
 function showCard(card) {
     card.classList.remove("svg-hide-card");
     card.classList.add("svg-show-card");
+    card.parentNode.classList.toggle("card-click");
     card.setAttribute("data-isShowing", true);
 }
 
 function hideCard(card) {
     card.classList.remove("svg-show-card");
     card.classList.add("svg-hide-card");
+    card.parentNode.classList.toggle("card-click");
     card.setAttribute("data-isShowing", false);
 }
 
