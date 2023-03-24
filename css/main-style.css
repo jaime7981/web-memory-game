@@ -218,6 +218,7 @@ path {
     border-style: none;
     border-radius: 5px;
     padding: 10px;
+    padding-right: 0px;
     width: inherit;
 }
 
@@ -231,7 +232,7 @@ path {
     border-color: black;
     border-width: 4px;
     border-radius: 0px 0px 5px 5px;
-    padding: 10px;
+    padding: 4px;
 
     display: flex;
     justify-content: center;
@@ -271,7 +272,6 @@ path {
     border-color: black;
     border-width: 2px;
     border-radius: 5px;
-    padding: 10px;
     margin: 0px;
 
     display: flex;
@@ -282,11 +282,14 @@ path {
 .scoreboard-table-top {
     background-color: var(--dark-first-color);
     color: var(--text-is-black-primary-color);
+    padding: 4px;
 }
 
 .scoreboard-table-data {
     background-color: var(--ligth-third-color);
     color: black;
+    padding: 10px 1px;
+    white-space:nowrap
 }
 
 .button-scoreboard-filter {
